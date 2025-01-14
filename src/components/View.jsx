@@ -13,45 +13,37 @@ import {
   TableCell,
   TableRow,
   TableHead,
-  LinearProgress,
   Chip,
-  Stepper,
-  Step,
-  StepLabel,
 } from "@mui/material";
-import { CheckCircle } from "@mui/icons-material";
-import { styled } from "@mui/system";
 import TrackLogo from "../assets/Track_Logo.svg";
 
 const View = ({ setVisible, rowData }) => {
-    console.log(rowData);
-    
   const handleClick = (type) => {
-    if(type==='table'){
-    setVisible("table");
-  }else{
-    setVisible("TrackForm");
-  }
+    if (type === "table") {
+      setVisible("table");
+    } else {
+      setVisible("TrackForm");
+    }
   };
   const breadcrumbs = [
     <Link
       underline="hover"
       key="1"
       color="inherit"
-      onClick={()=>handleClick('table')}
+      onClick={() => handleClick("table")}
       style={{ cursor: "pointer", fontSize: "0.75rem" }}
     >
       Equipment Management
     </Link>,
     <Link
-    underline="hover"
-    key="1"
-    color="inherit"
-    onClick={()=>handleClick('TrackForm')}
-    style={{ cursor: "pointer", fontSize: "0.75rem" }}
-  >
-    Small group(Item name)
-  </Link>,
+      underline="hover"
+      key="1"
+      color="inherit"
+      onClick={() => handleClick("TrackForm")}
+      style={{ cursor: "pointer", fontSize: "0.75rem" }}
+    >
+      Small group(Item name)
+    </Link>,
     <Typography
       key="2"
       sx={{ color: "text.primary" }}
@@ -134,7 +126,7 @@ const View = ({ setVisible, rowData }) => {
                 width: "150px",
                 height: "40px",
                 fontWeight: "400",
-                fontSize:'0.75rem'
+                fontSize: "0.75rem",
               }}
             >
               Track
@@ -144,12 +136,14 @@ const View = ({ setVisible, rowData }) => {
 
         {/* Table Equipment */}
         <Box sx={{ borderRadius: 2, boxShadow: 3, my: 2 }}>
-          <Table sx={{
-    border: '1px solid #ccc', // Outer border for the table
-    '& th, & td': {
-      border: '1px solid #ccc', // Inner cell borders
-    },
-  }}>
+          <Table
+            sx={{
+              border: "1px solid #ccc", // Outer border for the table
+              "& th, & td": {
+                border: "1px solid #ccc", // Inner cell borders
+              },
+            }}
+          >
             <TableHead>
               <TableRow sx={{ backgroundColor: "#fef9f4" }}>
                 <TableCell colSpan={2}>Equipment Information</TableCell>
@@ -157,32 +151,48 @@ const View = ({ setVisible, rowData }) => {
             </TableHead>
             <TableBody>
               <TableRow>
-                <TableCell sx={{width:'50%'}}>Type</TableCell>
-                <TableCell sx={{width:'50%'}}>{rowData.equipment_type || 'N/A'}</TableCell>
+                <TableCell sx={{ width: "50%" }}>Type</TableCell>
+                <TableCell sx={{ width: "50%" }}>
+                  {rowData.equipment_type || "N/A"}
+                </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell sx={{width:'50%'}}>Category</TableCell>
-                <TableCell sx={{width:'50%'}}>{rowData.equipment_category || 'N/A'}</TableCell>
+                <TableCell sx={{ width: "50%" }}>Category</TableCell>
+                <TableCell sx={{ width: "50%" }}>
+                  {rowData.equipment_category || "N/A"}
+                </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell sx={{width:'50%'}}>Equipment Owner</TableCell>
-                <TableCell sx={{width:'50%'}}>{rowData.equipment_owner || 'N/A'}</TableCell>
+                <TableCell sx={{ width: "50%" }}>Equipment Owner</TableCell>
+                <TableCell sx={{ width: "50%" }}>
+                  {rowData.equipment_owner || "N/A"}
+                </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell sx={{width:'50%'}}>Owner Contact Number</TableCell>
-                <TableCell sx={{width:'50%'}}>{rowData.equipment_owner_contact || 'N/A'}</TableCell>
+                <TableCell sx={{ width: "50%" }}>
+                  Owner Contact Number
+                </TableCell>
+                <TableCell sx={{ width: "50%" }}>
+                  {rowData.equipment_owner_contact || "N/A"}
+                </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell sx={{width:'50%'}}>Rent Start Date</TableCell>
-                <TableCell sx={{width:'50%'}}>{rowData.rental_start_date || 'N/A'}</TableCell>
+                <TableCell sx={{ width: "50%" }}>Rent Start Date</TableCell>
+                <TableCell sx={{ width: "50%" }}>
+                  {rowData.rental_start_date || "N/A"}
+                </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell sx={{width:'50%'}}>Rent End Date</TableCell>
-                <TableCell sx={{width:'50%'}}>{rowData.rental_end_date || 'N/A'}</TableCell>
+                <TableCell sx={{ width: "50%" }}>Rent End Date</TableCell>
+                <TableCell sx={{ width: "50%" }}>
+                  {rowData.rental_end_date || "N/A"}
+                </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell sx={{width:'50%'}}>Description</TableCell>
-                <TableCell sx={{width:'50%'}}>{rowData.equipment_descriptions || 'N/A'}</TableCell>
+                <TableCell sx={{ width: "50%" }}>Description</TableCell>
+                <TableCell sx={{ width: "50%" }}>
+                  {rowData.equipment_descriptions || "N/A"}
+                </TableCell>
               </TableRow>
             </TableBody>
           </Table>
@@ -190,12 +200,14 @@ const View = ({ setVisible, rowData }) => {
 
         {/* Table Purchase */}
         <Box sx={{ borderRadius: 2, boxShadow: 3, my: 2 }}>
-          <Table sx={{
-    border: '1px solid #ccc', // Outer border for the table
-    '& th, & td': {
-      border: '1px solid #ccc', // Inner cell borders
-    },
-  }}>
+          <Table
+            sx={{
+              border: "1px solid #ccc", // Outer border for the table
+              "& th, & td": {
+                border: "1px solid #ccc", // Inner cell borders
+              },
+            }}
+          >
             <TableHead>
               <TableRow sx={{ backgroundColor: "#fef9f4" }}>
                 <TableCell colSpan={2}>Purchase Information</TableCell>
@@ -203,56 +215,84 @@ const View = ({ setVisible, rowData }) => {
             </TableHead>
             <TableBody>
               <TableRow>
-                <TableCell sx={{width:'50%'}}>Purchase number (PO. No)</TableCell>
-                <TableCell sx={{width:'50%'}}>{rowData.purchase_number || 'N/A'}</TableCell>
+                <TableCell sx={{ width: "50%" }}>
+                  Purchase number (PO. No)
+                </TableCell>
+                <TableCell sx={{ width: "50%" }}>
+                  {rowData.purchase_number || "N/A"}
+                </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell sx={{width:'50%'}}>Serial Number</TableCell>
-                <TableCell sx={{width:'50%'}}>{rowData.ssn_number || 'N/A'}</TableCell>
+                <TableCell sx={{ width: "50%" }}>Serial Number</TableCell>
+                <TableCell sx={{ width: "50%" }}>
+                  {rowData.ssn_number || "N/A"}
+                </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell sx={{width:'50%'}}>Daily Rent</TableCell>
-                <TableCell sx={{width:'50%'}}>{rowData.rent || 'N/A'}</TableCell>
+                <TableCell sx={{ width: "50%" }}>Daily Rent</TableCell>
+                <TableCell sx={{ width: "50%" }}>
+                  {rowData.rent || "N/A"}
+                </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell sx={{width:'50%'}}>Total Amount Due</TableCell>
-                <TableCell sx={{width:'50%'}}>{rowData.total_amount_due || 'N/A'}</TableCell>
+                <TableCell sx={{ width: "50%" }}>Total Amount Due</TableCell>
+                <TableCell sx={{ width: "50%" }}>
+                  {rowData.total_amount_due || "N/A"}
+                </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell sx={{width:'50%'}}>Deposit Amount</TableCell>
-                <TableCell sx={{width:'50%'}}>{rowData.deposit_amount || 'N/A'}</TableCell>
+                <TableCell sx={{ width: "50%" }}>Deposit Amount</TableCell>
+                <TableCell sx={{ width: "50%" }}>
+                  {rowData.deposit_amount || "N/A"}
+                </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell sx={{width:'50%'}}>Paid</TableCell>
-                <TableCell sx={{width:'50%'}}>{rowData.paid || 'N/A'}</TableCell>
+                <TableCell sx={{ width: "50%" }}>Paid</TableCell>
+                <TableCell sx={{ width: "50%" }}>
+                  {rowData.paid || "N/A"}
+                </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell sx={{width:'50%'}}>Payment Method</TableCell>
-                <TableCell sx={{width:'50%'}}>{rowData.payment_method || 'N/A'}</TableCell>
+                <TableCell sx={{ width: "50%" }}>Payment Method</TableCell>
+                <TableCell sx={{ width: "50%" }}>
+                  {rowData.payment_method || "N/A"}
+                </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell sx={{width:'50%'}}>Bill</TableCell>
-                <TableCell sx={{width:'50%'}}>{rowData.purchase_bill || 'N/A'}</TableCell>
+                <TableCell sx={{ width: "50%" }}>Bill</TableCell>
+                <TableCell sx={{ width: "50%" }}>
+                  {rowData.purchase_bill || "N/A"}
+                </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell sx={{width:'50%'}}>Address Line 1</TableCell>
-                <TableCell sx={{width:'50%'}}>{rowData.address_line1 || 'N/A'}</TableCell>
+                <TableCell sx={{ width: "50%" }}>Address Line 1</TableCell>
+                <TableCell sx={{ width: "50%" }}>
+                  {rowData.address_line1 || "N/A"}
+                </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell sx={{width:'50%'}}>Address Line 2</TableCell>
-                <TableCell sx={{width:'50%'}}>{rowData.address_line_2 || 'N/A'}</TableCell>
+                <TableCell sx={{ width: "50%" }}>Address Line 2</TableCell>
+                <TableCell sx={{ width: "50%" }}>
+                  {rowData.address_line_2 || "N/A"}
+                </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell sx={{width:'50%'}}>City</TableCell>
-                <TableCell sx={{width:'50%'}}>{rowData.city || 'N/A'}</TableCell>
+                <TableCell sx={{ width: "50%" }}>City</TableCell>
+                <TableCell sx={{ width: "50%" }}>
+                  {rowData.city || "N/A"}
+                </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell sx={{width:'50%'}}>State</TableCell>
-                <TableCell sx={{width:'50%'}}>{rowData.state || 'N/A'}</TableCell>
+                <TableCell sx={{ width: "50%" }}>State</TableCell>
+                <TableCell sx={{ width: "50%" }}>
+                  {rowData.state || "N/A"}
+                </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell sx={{width:'50%'}}>Zip code</TableCell>
-                <TableCell sx={{width:'50%'}}>{rowData.zip_code || 'N/A'}</TableCell>
+                <TableCell sx={{ width: "50%" }}>Zip code</TableCell>
+                <TableCell sx={{ width: "50%" }}>
+                  {rowData.zip_code || "N/A"}
+                </TableCell>
               </TableRow>
             </TableBody>
           </Table>
@@ -260,12 +300,14 @@ const View = ({ setVisible, rowData }) => {
 
         {/* Table Others */}
         <Box sx={{ borderRadius: 2, boxShadow: 3, my: 2 }}>
-          <Table sx={{
-    border: '1px solid #ccc', // Outer border for the table
-    '& th, & td': {
-      border: '1px solid #ccc', // Inner cell borders
-    },
-  }}>
+          <Table
+            sx={{
+              border: "1px solid #ccc", // Outer border for the table
+              "& th, & td": {
+                border: "1px solid #ccc", // Inner cell borders
+              },
+            }}
+          >
             <TableHead>
               <TableRow sx={{ backgroundColor: "#fef9f4" }}>
                 <TableCell colSpan={2}>Other Information</TableCell>
@@ -273,17 +315,20 @@ const View = ({ setVisible, rowData }) => {
             </TableHead>
             <TableBody>
               <TableRow>
-                <TableCell sx={{width:'50%'}}>Memo</TableCell>
-                <TableCell sx={{width:'50%'}}>{rowData.memo || 'N/A'}</TableCell>
+                <TableCell sx={{ width: "50%" }}>Memo</TableCell>
+                <TableCell sx={{ width: "50%" }}>
+                  {rowData.memo || "N/A"}
+                </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell sx={{width:'50%'}}>Acknowledgment Mode</TableCell>
-                <TableCell sx={{width:'50%'}}>{rowData.signature_type || 'N/A'}</TableCell>
+                <TableCell sx={{ width: "50%" }}>Acknowledgment Mode</TableCell>
+                <TableCell sx={{ width: "50%" }}>
+                  {rowData.signature_type || "N/A"}
+                </TableCell>
               </TableRow>
             </TableBody>
           </Table>
         </Box>
-
       </Card>
     </Box>
   );

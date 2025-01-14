@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Box,
   Typography,
@@ -14,7 +14,7 @@ import {
   TableRow,
   Chip,
   Paper,
-  Menu
+  Menu,
 } from "@mui/material";
 import { Search, MoreVert } from "@mui/icons-material";
 
@@ -25,19 +25,20 @@ const TableData = ({ initialColumn, data, handleAction }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
-  const handleClick = (event,row) => {
+  const handleClick = (event, row) => {
     setAnchorEl(event.currentTarget);
     setSelectedRow(row);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
-    setSelectedRow(null)
+    setSelectedRow(null);
   };
 
   // Filter data based on selected category and search term
   const filteredData = data.filter((row) => {
-    const matchesCategory = selectedCategory === "All" || row.equipment_category === selectedCategory;
+    const matchesCategory =
+      selectedCategory === "All" || row.equipment_category === selectedCategory;
     const matchesSearch = search
       ? Object.values(row).some((value) =>
           value?.toString().toLowerCase().includes(search.toLowerCase())
@@ -48,7 +49,13 @@ const TableData = ({ initialColumn, data, handleAction }) => {
 
   return (
     <Box sx={{ py: 1, px: 3, mt: 4 }}>
-      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
         <Typography variant="h6" sx={{ mb: 2 }}>
           Equipment
         </Typography>
@@ -62,7 +69,9 @@ const TableData = ({ initialColumn, data, handleAction }) => {
             <MenuItem value="All">All</MenuItem>
             {data
               .map((item) => item.equipment_category || "N/A")
-              .filter((value, index, self) => value && self.indexOf(value) === index)
+              .filter(
+                (value, index, self) => value && self.indexOf(value) === index
+              )
               .map((category, index) => (
                 <MenuItem key={index} value={category}>
                   {category}
@@ -91,7 +100,10 @@ const TableData = ({ initialColumn, data, handleAction }) => {
           <TableHead>
             <TableRow sx={{ background: "#fff4e6" }}>
               {initialColumn.map((col, index) => (
-                <TableCell key={index} style={{ fontSize: "0.75rem",fontWeight:'bold' }}>
+                <TableCell
+                  key={index}
+                  style={{ fontSize: "0.75rem", fontWeight: "bold" }}
+                >
                   {col.toUpperCase()}
                 </TableCell>
               ))}
@@ -101,22 +113,52 @@ const TableData = ({ initialColumn, data, handleAction }) => {
             {filteredData.length > 0 ? (
               filteredData.map((row, rowIndex) => (
                 <TableRow key={rowIndex}>
-                  <TableCell style={{ fontSize: "0.75rem" }}>{row.equipment_name || "N/A"}</TableCell>
-                  <TableCell style={{ fontSize: "0.75rem" }}>{row.equipment_category || "N/A"}</TableCell>
-                  <TableCell style={{ fontSize: "0.75rem" }}>{row.equipment_type || "N/A"}</TableCell>
-                  <TableCell style={{ fontSize: "0.75rem" }}>{row.vendor_supplier_location || "N/A"}</TableCell>
-                  <TableCell style={{ fontSize: "0.75rem" }}>{row.equipment_descriptions || "N/A"}</TableCell>
-                  <TableCell style={{ fontSize: "0.75rem" }}>{row.equipment_name || "N/A"}</TableCell>
-                  <TableCell style={{ fontSize: "0.75rem" }}>{row.changed_by_detail.full_name || "N/A"}</TableCell>
-                  <TableCell style={{ fontSize: "0.75rem" }}>{row.equipment_deactivated_date || "N/A"}</TableCell>
                   <TableCell style={{ fontSize: "0.75rem" }}>
-                    {row.equipment_status==='available'?<Chip
-                      label={row.equipment_status || "N/A"}
-                      sx={{ background: "#EBFFF3", color: "#16B681", borderRadius: "0.25rem",border:'1px solid #16B681' }}
-                    />:<Chip
-                    label={row.equipment_status || "N/A"}
-                    sx={{ background: "#FFF1E7", color: "#FE634E", borderRadius: "0.25rem",border:'1px solid #FE634E' }}
-                  />}
+                    {row.equipment_name || "N/A"}
+                  </TableCell>
+                  <TableCell style={{ fontSize: "0.75rem" }}>
+                    {row.equipment_category || "N/A"}
+                  </TableCell>
+                  <TableCell style={{ fontSize: "0.75rem" }}>
+                    {row.equipment_type || "N/A"}
+                  </TableCell>
+                  <TableCell style={{ fontSize: "0.75rem" }}>
+                    {row.vendor_supplier_location || "N/A"}
+                  </TableCell>
+                  <TableCell style={{ fontSize: "0.75rem" }}>
+                    {row.equipment_descriptions || "N/A"}
+                  </TableCell>
+                  <TableCell style={{ fontSize: "0.75rem" }}>
+                    {row.equipment_name || "N/A"}
+                  </TableCell>
+                  <TableCell style={{ fontSize: "0.75rem" }}>
+                    {row.changed_by_detail.full_name || "N/A"}
+                  </TableCell>
+                  <TableCell style={{ fontSize: "0.75rem" }}>
+                    {row.equipment_deactivated_date || "N/A"}
+                  </TableCell>
+                  <TableCell style={{ fontSize: "0.75rem" }}>
+                    {row.equipment_status === "available" ? (
+                      <Chip
+                        label={row.equipment_status || "N/A"}
+                        sx={{
+                          background: "#EBFFF3",
+                          color: "#16B681",
+                          borderRadius: "0.25rem",
+                          border: "1px solid #16B681",
+                        }}
+                      />
+                    ) : (
+                      <Chip
+                        label={row.equipment_status || "N/A"}
+                        sx={{
+                          background: "#FFF1E7",
+                          color: "#FE634E",
+                          borderRadius: "0.25rem",
+                          border: "1px solid #FE634E",
+                        }}
+                      />
+                    )}
                   </TableCell>
                   <TableCell style={{ fontSize: "0.75rem" }}>
                     <IconButton
@@ -145,14 +187,14 @@ const TableData = ({ initialColumn, data, handleAction }) => {
                     >
                       <MenuItem
                         key="View"
-                        onClick={(e) => handleAction(e, "view",selectedRow)}
+                        onClick={(e) => handleAction(e, "view", selectedRow)}
                         style={{ fontSize: "0.75rem" }}
                       >
                         View
                       </MenuItem>
                       <MenuItem
                         key="Track Equipment"
-                        onClick={(e) => handleAction(e, "track",selectedRow)}
+                        onClick={(e) => handleAction(e, "track", selectedRow)}
                         style={{ fontSize: "0.75rem" }}
                       >
                         Track Equipment
@@ -163,7 +205,10 @@ const TableData = ({ initialColumn, data, handleAction }) => {
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={initialColumn.length} style={{ textAlign: "center" }}>
+                <TableCell
+                  colSpan={initialColumn.length}
+                  style={{ textAlign: "center" }}
+                >
                   No data available.
                 </TableCell>
               </TableRow>
