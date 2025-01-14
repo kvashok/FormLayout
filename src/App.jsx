@@ -4,6 +4,7 @@ import axios from 'axios';
 import SubHeader from './components/SubHeader';
 import TableData from './components/TableData';
 import Track from './components/Track';
+import View from './components/View';
 
 const App = () => {
   const initialColumn = [
@@ -14,6 +15,7 @@ const App = () => {
   ];
   
   const [data, setData] = useState([]);
+  const [rowData, setRowData] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [visible,setVisible] = useState('table');
@@ -36,11 +38,12 @@ const App = () => {
     fetchData();
   }, [token]);
 
-  const handleAction=(e,type)=>{
+  const handleAction=(e,type,row)=>{
     if(type==='view'){
-      setVisible('viewForm')
+      setVisible('viewForm');
+      setRowData(row)
     }else{
-      setVisible('TrackForm')
+      setVisible('TrackForm');
     }
   }
 
@@ -54,6 +57,9 @@ const App = () => {
       )}
       {visible === "TrackForm" && (
         <Track setVisible={setVisible}/>
+      )}
+      {visible === "viewForm" && (
+        <View setVisible={setVisible} rowData={rowData}/>
       )}
     </>
   );
