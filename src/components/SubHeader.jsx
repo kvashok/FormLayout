@@ -9,7 +9,12 @@ import {
   } from "@mui/material";
   
 
-const SubHeader = () => {
+const SubHeader = ({setVisible}) => {
+  const handleChange=(e)=>{
+    if(e.target.value="Equipment Management"){
+      setVisible('table')
+    }
+  }
   return (
     <Box sx={{ mt:0.25 }}>
       <AppBar position="static" sx={{ background: "#fff", color: "#000",height:'4.8125rem',display:'flex',justifyContent:'center' }}>
@@ -21,7 +26,7 @@ const SubHeader = () => {
           id="demo-simple-select-helper"
         //   value={management}
           label="Management"
-        //   onChange={handleChange}
+          onChange={handleChange}
           sx={{
             '& .MuiOutlinedInput-notchedOutline': {
               border: 'none',

@@ -3,6 +3,7 @@ import Header from './components/Header';
 import axios from 'axios';
 import SubHeader from './components/SubHeader';
 import TableData from './components/TableData';
+import Track from './components/Track';
 
 const App = () => {
   const initialColumn = [
@@ -35,13 +36,24 @@ const App = () => {
     fetchData();
   }, [token]);
 
+  const handleAction=(e,type)=>{
+    if(type==='view'){
+      setVisible('viewForm')
+    }else{
+      setVisible('TrackForm')
+    }
+  }
+
   return (
     <>
       <Header />
-      <SubHeader />
+      <SubHeader setVisible={setVisible}/>
       {error && <div>Error fetching data: {error.message}</div>}
       {visible === "table" && (
-        <TableData initialColumn={initialColumn} data={data} />
+        <TableData initialColumn={initialColumn} data={data} handleAction={handleAction}/>
+      )}
+      {visible === "TrackForm" && (
+        <Track/>
       )}
     </>
   );

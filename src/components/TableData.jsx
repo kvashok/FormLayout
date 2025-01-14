@@ -18,9 +18,8 @@ import {
 } from "@mui/material";
 import { Search, MoreVert } from "@mui/icons-material";
 
-const TableData = ({ initialColumn, data }) => {
+const TableData = ({ initialColumn, data, handleAction }) => {
   console.log(data);
-  // const options = ['View','Track']
   const [search, setSearch] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -30,14 +29,6 @@ const TableData = ({ initialColumn, data }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  const handleAction=(e,type)=>{
-    if(type==='view'){
-
-    }else{
-
-    }
-  }
 
   return (
     <Box sx={{ py: 1, px: 3, mt: 4 }}>
