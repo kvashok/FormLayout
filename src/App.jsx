@@ -53,7 +53,7 @@ const App = () => {
         <TableData initialColumn={initialColumn} data={data} handleAction={handleAction}/>
       )}
       {visible === "TrackForm" && (
-        <Track/>
+        <Track setVisible={setVisible}/>
       )}
     </>
   );
