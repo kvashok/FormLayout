@@ -15,6 +15,7 @@ import {
   Chip,
   Paper,
   Menu,
+  Checkbox
 } from "@mui/material";
 import { Search, MoreVert } from "@mui/icons-material";
 
@@ -22,6 +23,7 @@ const TableData = ({ initialColumn, data, handleAction }) => {
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All"); // Default to 'All' categories
   const [selectedRow, setSelectedRow] = useState([]);
+  const [selected, setSelected] = React.useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -99,10 +101,21 @@ const TableData = ({ initialColumn, data, handleAction }) => {
         <Table>
           <TableHead>
             <TableRow sx={{ background: "#fff4e6" }}>
+            <TableCell padding="checkbox">
+          <Checkbox
+            color="primary"
+            // indeterminate={numSelected > 0 && numSelected < rowCount}
+            // checked={rowCount > 0 && numSelected === rowCount}
+            // onChange={onSelectAllClick}
+            inputProps={{
+              'aria-label': 'select all desserts',
+            }}
+          />
+        </TableCell>
               {initialColumn.map((col, index) => (
                 <TableCell
                   key={index}
-                  style={{ fontSize: "0.75rem", fontWeight: "bold" }}
+                  style={{ fontSize: "0.75rem", fontWeight: "700" }}
                 >
                   {col.toUpperCase()}
                 </TableCell>
@@ -111,8 +124,19 @@ const TableData = ({ initialColumn, data, handleAction }) => {
           </TableHead>
           <TableBody>
             {filteredData.length > 0 ? (
-              filteredData.map((row, rowIndex) => (
+              filteredData.map((row, rowIndex) => {
+                const isItemSelected = selected.includes(row.id);
+                return(
                 <TableRow key={rowIndex}>
+                  <TableCell padding="checkbox">
+                      <Checkbox
+                        color="primary"
+                        checked={isItemSelected}
+                        // inputProps={{
+                        //   'aria-labelledby': labelId,
+                        // }}
+                      />
+                    </TableCell>
                   <TableCell style={{ fontSize: "0.75rem" }}>
                     {row.equipment_name || "N/A"}
                   </TableCell>
@@ -202,14 +226,14 @@ const TableData = ({ initialColumn, data, handleAction }) => {
                     </Menu>
                   </TableCell>
                 </TableRow>
-              ))
+              )})
             ) : (
               <TableRow>
                 <TableCell
                   colSpan={initialColumn.length}
                   style={{ textAlign: "center" }}
                 >
-                  No data available.
+                  Loading....
                 </TableCell>
               </TableRow>
             )}

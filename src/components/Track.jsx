@@ -12,20 +12,41 @@ import {
   Stepper,
   Step,
   StepLabel,
+  StepConnector,
 } from "@mui/material";
 import { CheckCircle } from "@mui/icons-material";
 import { styled } from "@mui/system";
 import TrackLogo from "../assets/Track_Logo.svg";
 
 const CustomStepIcon = styled(CheckCircle)(({ theme }) => ({
-  color: "#4caf50",
-  fontSize: "32px",
+  color: "#35A462", // Green color for completed icon
+  fontSize: "48px",
 }));
+
+const CustomConnector = styled(StepConnector)(({ theme }) => ({
+  '& .MuiStepConnector-line': {
+    borderColor: theme.palette.grey || '#e0e0e0', // Default connector color
+    borderWidth: 8, // Thicker line
+    marginTop: 10,
+  },
+  '&.Mui-active .MuiStepConnector-line': {
+    borderColor: "#35A462", // Green for active step
+    borderWidth: 8, // Thicker line for active step
+    marginTop: 10,
+  },
+  '&.Mui-completed .MuiStepConnector-line': {
+    borderColor: "#35A462", // Green for completed step
+    borderWidth: 8, // Thicker line for completed step
+    marginTop: 10,
+  },
+}));
+
 
 const Track = ({ setVisible }) => {
   const handleClick = () => {
     setVisible("table");
   };
+
   const breadcrumbs = [
     <Link
       underline="hover"
@@ -44,6 +65,7 @@ const Track = ({ setVisible }) => {
       Small group (Item name)
     </Typography>,
   ];
+
   return (
     <Box sx={{ py: 1, px: 3, mt: 2 }}>
       <Stack spacing={2} style={{ marginTop: "1rem" }}>
@@ -52,12 +74,11 @@ const Track = ({ setVisible }) => {
         </Breadcrumbs>
       </Stack>
 
-      {/* Main Card */}
-      <Card sx={{ mt: 2, p: 1.5 }}>
+      <Card sx={{ mt: 2, p: 6 }}>
         <Grid container spacing={2}>
           <Grid item xs={1} sm={1}>
             <Card sx={{ mt: 1, p: 1 }}>
-              <img src={TrackLogo} style={{ width: "4rem", height: "4rem" }} />
+              <img src={TrackLogo} style={{ width: "4rem", height: "4rem" }} alt="Track Logo" />
             </Card>
           </Grid>
           <Grid item xs={13} sm={9}>
@@ -112,14 +133,10 @@ const Track = ({ setVisible }) => {
           </Grid>
         </Grid>
 
-        {/* Progress Bar */}
         <Box sx={{ width: "100%", py: 4 }}>
-          <Stepper alternativeLabel>
-            <Step active>
-              <StepLabel
-                StepIconComponent={() => <CustomStepIcon />}
-                sx={{ paddingRight: 0 }}
-              >
+          <Stepper alternativeLabel connector={<CustomConnector />}>
+            <Step completed>
+              <StepLabel StepIconComponent={CustomStepIcon}>
                 <Typography
                   variant="body2"
                   textAlign="center"
@@ -141,13 +158,8 @@ const Track = ({ setVisible }) => {
               </StepLabel>
             </Step>
 
-            {/* <CustomStepConnector /> */}
-
-            <Step active>
-              <StepLabel
-                StepIconComponent={() => <CustomStepIcon />}
-                sx={{ paddingRight: 0 }}
-              >
+            <Step completed>
+              <StepLabel StepIconComponent={CustomStepIcon}>
                 <Typography
                   variant="body2"
                   textAlign="center"
@@ -173,14 +185,10 @@ const Track = ({ setVisible }) => {
               </StepLabel>
             </Step>
 
-            {/* <IncompleteStepConnector /> */}
-
             <Step>
-              <StepLabel
-                StepIconComponent={() => (
-                  <CheckCircle sx={{ color: "#e0e0e0", fontSize: "32px" }} />
-                )}
-              >
+              <StepLabel StepIconComponent={() => (
+                <CheckCircle sx={{ color: "#e0e0e0", fontSize: "48px" }} />
+              )}>
                 <Typography
                   variant="body2"
                   textAlign="center"

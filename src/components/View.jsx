@@ -53,7 +53,7 @@ const View = ({ setVisible, rowData }) => {
     </Typography>,
   ];
   return (
-    <Box sx={{ py: 1, px: 3, mt: 2 }}>
+    <Box sx={{ py: 1, px: 6, mt: 2 }}>
       <Stack spacing={2} style={{ marginTop: "1rem" }}>
         <Breadcrumbs separator="›" aria-label="breadcrumb">
           {breadcrumbs}
@@ -61,7 +61,7 @@ const View = ({ setVisible, rowData }) => {
       </Stack>
 
       {/* Main Card */}
-      <Card sx={{ mt: 2, p: 2 }}>
+      <Card sx={{ mt: 2, p: 6 }}>
         <Grid container spacing={2}>
           <Grid item xs={1} sm={1}>
             <Card sx={{ mt: 1, p: 1 }}>
@@ -102,9 +102,9 @@ const View = ({ setVisible, rowData }) => {
               sx={{ mt: 2.5 }}
               style={{ fontSize: "12px" }}
             >
-              Last Program name: <Link href="#">Fire Relief Training</Link> |
-              Last Current Holding: <Link href="#">(Program Manager name)</Link>{" "}
-              | Last Last updated date: 12/12/2024
+              Program name: <Link href="#">Fire Relief Training</Link> |
+              Current Holding: <Link href="#">(Program Manager name)</Link>{" "}
+              | Last updated date: 12/12/2024
             </Typography>
             <Typography
               variant="body2"
