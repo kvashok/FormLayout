@@ -37,6 +37,7 @@ const TableData = ({ initialColumn, data, handleAction }) => {
     setSelectedRow(null);
   };
 
+  console.log('data',data);
   // Filter data based on selected category and search term
   const filteredData = data.filter((row) => {
     const matchesCategory =
@@ -48,7 +49,7 @@ const TableData = ({ initialColumn, data, handleAction }) => {
       : true;
     return matchesCategory && matchesSearch;
   });
-
+  
   return (
     <Box sx={{ py: 1, px: 3, mt: 4 }}>
       <Box
