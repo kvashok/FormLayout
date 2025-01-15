@@ -23,6 +23,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import UploadIcon from "../assets/Upload_icon.svg";
 import UploadSignature from "../assets/Upload_Signature.svg";
+import Datepicker from "../assets/Datepicker.svg";
 
 const AddEquipment = ({ setVisible, setValue }) => {
   const [expanded, setExpanded] = useState("panel1"); // State for expanded accordion
