@@ -45,6 +45,7 @@ const CustomConnector = styled(StepConnector)(({ theme }) => ({
 const Track = ({ setVisible }) => {
   const handleClick = () => {
     setVisible("table");
+    setValue("Equipment Management");
   };
 
   const breadcrumbs = [

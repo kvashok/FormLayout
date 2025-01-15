@@ -21,6 +21,11 @@ const View = ({ setVisible, rowData }) => {
   const handleClick = (type) => {
     if (type === "table") {
       setVisible("table");
+      setValue("Equipment Management");
+    }else if(type==="back"){
+      setVisible("table");
+    }else if(type==="track") {
+      setVisible("TrackForm");
     } else {
       setVisible("TrackForm");
     }
@@ -102,9 +107,9 @@ const View = ({ setVisible, rowData }) => {
               sx={{ mt: 2.5 }}
               style={{ fontSize: "12px" }}
             >
-              Program name: <Link href="#">Fire Relief Training</Link> |
-              Current Holding: <Link href="#">(Program Manager name)</Link>{" "}
-              | Last updated date: 12/12/2024
+              Program name: <Link href="#">Fire Relief Training</Link> | Current
+              Holding: <Link href="#">(Program Manager name)</Link> | Last
+              updated date: 12/12/2024
             </Typography>
             <Typography
               variant="body2"
@@ -128,6 +133,7 @@ const View = ({ setVisible, rowData }) => {
                 fontWeight: "400",
                 fontSize: "0.75rem",
               }}
+              onClick={()=>handleClick('track')}
             >
               Track
             </Button>
@@ -328,6 +334,40 @@ const View = ({ setVisible, rowData }) => {
               </TableRow>
             </TableBody>
           </Table>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            mt: 6,
+          }}
+        >
+          <Button
+            variant="outlined"
+            style={{
+              margin: "0rem 1rem",
+              color: "#18283D",
+              border: "1px solid #18283D",
+              width: "180px",
+              height: "55px",
+            }}
+            onClick={()=>handleClick('back')}
+          >
+            Back
+          </Button>
+          <Button
+            variant="contained"
+            style={{
+              background: "#FE634E",
+              margin: "0rem 1rem",
+              width: "180px",
+              height: "55px",
+            }}
+            onClick={()=>handleClick('track')}
+          >
+            Track
+          </Button>
         </Box>
       </Card>
     </Box>

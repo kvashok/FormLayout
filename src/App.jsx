@@ -57,11 +57,11 @@ const App = () => {
       setVisible("TrackForm");
     }
   };
-
+  const [value, setValue] = React.useState("Equipment Management");
   return (
     <>
       <Header />
-      <SubHeader setVisible={setVisible} />
+      <SubHeader setVisible={setVisible} setValue={setValue} value={value}/>
       {error && <div>Error fetching data: {error.message}</div>}
       {visible === "table" && (
         <TableData
@@ -70,11 +70,11 @@ const App = () => {
           handleAction={handleAction}
         />
       )}
-      {visible === "TrackForm" && <Track setVisible={setVisible} />}
+      {visible === "TrackForm" && <Track setVisible={setVisible} setValue={setValue}/>}
       {visible === "viewForm" && (
-        <View setVisible={setVisible} rowData={rowData} />
+        <View setVisible={setVisible} rowData={rowData} setValue={setValue}/>
       )}
-      {visible === "addForm" && <AddEquipment setVisible={setVisible} />}
+      {visible === "addForm" && <AddEquipment setVisible={setVisible} setValue={setValue}/>}
     </>
   );
 };

@@ -9,8 +9,8 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/system";
 
-const SubHeader = ({ setVisible }) => {
-  const [value, setValue] = React.useState("Equipment Management");
+const SubHeader = ({ setVisible,setValue,value }) => {
+  
   const handleChange = (e) => {
     if (e.target.value === "Equipment Management") {
       setVisible("table");
