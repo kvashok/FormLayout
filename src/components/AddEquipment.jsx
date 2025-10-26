@@ -9,9 +9,9 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
-  Grid,
   Checkbox,
   FormControl,
+  FormHelperText,
   Stack,
   Breadcrumbs,
   Link,
@@ -20,6 +20,7 @@ import {
   DialogContent,
   Chip
 } from "@mui/material";
+import { Grid } from '@mui/material';
 import axios from "axios";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -56,6 +57,7 @@ const AddEquipment = ({ setVisible, setValue }) => {
     zip_code: "",
   });
   const [open, setOpen] = useState(false);
+  const [errors, setErrors] = useState({});
   const formSections = [
     {
       title: "Equipment Information",
@@ -77,7 +79,7 @@ const AddEquipment = ({ setVisible, setValue }) => {
         {
           label: "Equipment Category",
           type: "select",
-          options: ["Vehicle", "Machinery", "Essentials"],
+          options: ["Computer", "Printer", "Network","Display","Audio/Video"],
           key: "equipment_category",
         },
         {
@@ -167,11 +169,20 @@ const AddEquipment = ({ setVisible, setValue }) => {
   ];
 
   const handleInputChange = (key) => (event) => {
-    setFormData({ ...formData, [key]: event.target.value });
+    const value = event.target.value;
+    setFormData({ ...formData, [key]: value });
+    // Clear error when user starts typing
+    if (errors[key] && value.trim() !== '') {
+      setErrors({ ...errors, [key]: null });
+    }
   };
 
   const handleCheckboxChange = (key, value) => () => {
     setFormData({ ...formData, [key]: formData[key] === value ? "" : value });
+    // Clear error when user makes a selection
+    if (errors[key]) {
+      setErrors({ ...errors, [key]: null });
+    }
   };
 
   const handleFileChange = (key) => (event) => {
@@ -195,6 +206,46 @@ const AddEquipment = ({ setVisible, setValue }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    // Reset errors
+    setErrors({});
+    
+    // Expand all sections when there are validation errors
+    setExpanded("panel1");
+
+    // Validate mandatory fields
+    const newErrors = {};
+    const mandatoryFields = [
+      'equipment_type',
+      'equipment_category',
+      'equipment_name',
+      'equipment_descriptions',
+      'purchase_number',
+      'ssn_number',
+      'purchase_type',
+      'date_of_purchase',
+      'purchase_price',
+      'vendor_supplier',
+      'vendor_supplier_location',
+      'vendor_supplier_contact',
+      'warranty_avaiability',
+      'address_line1',
+      'city',
+      'state',
+      'zip_code'
+    ];
+
+    mandatoryFields.forEach(field => {
+      const value = formData[field];
+      if (!value || (typeof value === 'string' && value.trim() === '')) {
+        newErrors[field] = 'This field is required';
+      }
+    });
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
 
     const data = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
@@ -335,15 +386,21 @@ const AddEquipment = ({ setVisible, setValue }) => {
                             ))}
                           </RadioGroup>
                         )}
-                        {field.type === "text" && (
+                          {field.type === "text" && (
                           <TextField
                             fullWidth
                             value={formData[field.key]}
                             onChange={handleInputChange(field.key)}
+                            error={Boolean(errors[field.key])}
+                            helperText={errors[field.key]}
                             sx={{
                               "& .MuiOutlinedInput-root": {
-                                "& fieldset": { border: "none" },
+                                "& fieldset": { border: errors[field.key] ? "1px solid #d32f2f" : "none" },
                               },
+                              "& .MuiFormHelperText-root": {
+                                color: "#d32f2f",
+                                marginLeft: 0
+                              }
                             }}
                             style={{ background: "#FAFAFA" }}
                           />

@@ -42,11 +42,15 @@ const CustomConnector = styled(StepConnector)(({ theme }) => ({
 }));
 
 
-const Track = ({ setVisible }) => {
+const Track = ({ setVisible,setValue,rowData,setRowData}) => {
   const handleClick = () => {
     setVisible("table");
     setValue("Equipment Management");
   };
+  const handleView = () => {
+    setVisible("viewForm");
+    setRowData(rowData);
+  }
 
   const breadcrumbs = [
     <Link
@@ -128,6 +132,7 @@ const Track = ({ setVisible }) => {
                 fontWeight: "400",
                 fontSize: "0.75rem",
               }}
+              onClick={handleView}
             >
               View Details
             </Button>

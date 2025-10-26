@@ -27,7 +27,19 @@ const TableData = ({ initialColumn, data, handleAction }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
-  const handleClick = (event, row) => {
+  const handleSelectAllClick = (event) => {
+    if (event.target.checked) {
+      const newSelected = filteredData.map((row) => row.id);
+      setSelected(newSelected);
+      // Console log all selected objects
+      console.log('Selected Objects:', filteredData);
+      return;
+    }
+    setSelected([]);
+    console.log('Selected Objects:', []);
+  };
+
+  const handleMenuClick = (event, row) => {
     setAnchorEl(event.currentTarget);
     setSelectedRow(row);
   };
@@ -37,7 +49,32 @@ const TableData = ({ initialColumn, data, handleAction }) => {
     setSelectedRow(null);
   };
 
-  console.log('data',data);
+  const handleCheckboxClick = (event, id) => {
+    const selectedIndex = selected.indexOf(id);
+    let newSelected = [];
+
+    if (selectedIndex === -1) {
+      newSelected = newSelected.concat(selected, id);
+    } else if (selectedIndex === 0) {
+      newSelected = newSelected.concat(selected.slice(1));
+    } else if (selectedIndex === selected.length - 1) {
+      newSelected = newSelected.concat(selected.slice(0, -1));
+    } else if (selectedIndex > 0) {
+      newSelected = newSelected.concat(
+        selected.slice(0, selectedIndex),
+        selected.slice(selectedIndex + 1)
+      );
+    }
+
+    setSelected(newSelected);
+    
+    // Get and console log the selected objects
+    const selectedObjects = filteredData.filter(row => 
+      newSelected.includes(row.id)
+    );
+    console.log('Selected Objects:', selectedObjects);
+  };
+
   // Filter data based on selected category and search term
   const filteredData = data.filter((row) => {
     const matchesCategory =
@@ -103,16 +140,16 @@ const TableData = ({ initialColumn, data, handleAction }) => {
           <TableHead>
             <TableRow sx={{ background: "#fff4e6" }}>
             <TableCell padding="checkbox">
-          <Checkbox
-            color="primary"
-            // indeterminate={numSelected > 0 && numSelected < rowCount}
-            // checked={rowCount > 0 && numSelected === rowCount}
-            // onChange={onSelectAllClick}
-            inputProps={{
-              'aria-label': 'select all desserts',
-            }}
-          />
-        </TableCell>
+              <Checkbox
+                color="primary"
+                indeterminate={selected.length > 0 && selected.length < filteredData.length}
+                checked={filteredData.length > 0 && selected.length === filteredData.length}
+                onChange={handleSelectAllClick}
+                inputProps={{
+                  'aria-label': 'select all equipment',
+                }}
+              />
+            </TableCell>
               {initialColumn.map((col, index) => (
                 <TableCell
                   key={index}
@@ -133,9 +170,10 @@ const TableData = ({ initialColumn, data, handleAction }) => {
                       <Checkbox
                         color="primary"
                         checked={isItemSelected}
-                        // inputProps={{
-                        //   'aria-labelledby': labelId,
-                        // }}
+                        onChange={(event) => handleCheckboxClick(event, row.id)}
+                        inputProps={{
+                          'aria-labelledby': `table-checkbox-${row.id}`,
+                        }}
                       />
                     </TableCell>
                   <TableCell style={{ fontSize: "0.75rem" }}>
@@ -189,7 +227,7 @@ const TableData = ({ initialColumn, data, handleAction }) => {
                     <IconButton
                       aria-label="more"
                       id="long-button"
-                      onClick={(e) => handleClick(e, row)}
+                      onClick={(e) => handleMenuClick(e, row)}
                       aria-controls={open ? "long-menu" : undefined}
                       aria-expanded={open ? "true" : undefined}
                       aria-haspopup="true"

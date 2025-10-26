@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import TrackLogo from "../assets/Track_Logo.svg";
 
-const View = ({ setVisible, rowData }) => {
+const View = ({ setVisible, rowData,setValue,setRowData }) => {
   const handleClick = (type) => {
     if (type === "table") {
       setVisible("table");

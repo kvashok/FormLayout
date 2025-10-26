@@ -6,6 +6,7 @@ import TableData from "./components/TableData";
 import Track from "./components/Track";
 import View from "./components/View";
 import AddEquipment from "./components/AddEquipment";
+import { mockEquipmentData } from './mockData';
 
 const App = () => {
   const initialColumn = [
@@ -32,13 +33,21 @@ const App = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "https://vms-backend.dataterrain-dev.net/api/equipment",
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
-        setData(response.data.results);
+        // Toggle between mock data and API data
+        const useMockData = true; // Set to false to use real API
+        
+        if (useMockData) {
+          setData(mockEquipmentData);
+          setLoading(false);
+        } else {
+          const response = await axios.get(
+            "https://vms-backend.dataterrain-dev.net/api/equipment",
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          );
+          setData(response.data.results);
+        }
       } catch (err) {
         setError(err);
       } finally {
@@ -70,9 +79,9 @@ const App = () => {
           handleAction={handleAction}
         />
       )}
-      {visible === "TrackForm" && <Track setVisible={setVisible} setValue={setValue}/>}
+      {visible === "TrackForm" && <Track setVisible={setVisible} setValue={setValue} rowData={rowData} setRowData={setRowData}/>}
       {visible === "viewForm" && (
-        <View setVisible={setVisible} rowData={rowData} setValue={setValue}/>
+        <View setVisible={setVisible} rowData={rowData} setValue={setValue} setRowData={setRowData}/>
       )}
       {visible === "addForm" && <AddEquipment setVisible={setVisible} setValue={setValue}/>}
     </>
